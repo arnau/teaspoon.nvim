@@ -1,5 +1,6 @@
-A Lush Theme for Neovim.
-===
+# Teaspoon
 
-See: http://git.io/lush.nvim for more information on Lush and a helper script
-to setup your repo clone.
+A [Lush] Theme for Neovim.
+
+
+[Lush]: http://git.io/lush.nvim
