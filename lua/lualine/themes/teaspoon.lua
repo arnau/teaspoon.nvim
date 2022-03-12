@@ -15,7 +15,7 @@ return {
   normal = {
     a = { bg = colours.blue, fg = colours.black, gui = "bold" },
     b = { bg = colours.deep_grey, fg = colours.yellow },
-    c = { bg = colours.darkgrey, fg = colours.gray },
+    c = { bg = colours.darkgrey, fg = colours.grey },
   },
   insert = {
     a = { bg = colours.green, fg = colours.black, gui = "bold" },
@@ -38,8 +38,8 @@ return {
     c = { bg = colours.darkgrey, fg = colours.grey },
   },
   inactive = {
-    a = { bg = colours.darkgray, fg = colours.gray, gui = "bold" },
-    b = { bg = colours.darkgray, fg = colours.gray },
-    c = { bg = colours.darkgray, fg = colours.gray },
+    a = { bg = colours.darkgrey, fg = colours.grey, gui = "bold" },
+    b = { bg = colours.darkgrey, fg = colours.grey },
+    c = { bg = colours.darkgrey, fg = colours.grey },
   },
 }
