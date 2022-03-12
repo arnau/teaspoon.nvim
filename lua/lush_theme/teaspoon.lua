@@ -5,45 +5,7 @@
 --  `:lua require('lush').ify()`
 
 local lush = require("lush")
-local hsl = lush.hsl
-
--- palette
-local palette = {
-  black = hsl("#252525"),
-  blue = hsl("#99bbdd"),
-  brown = hsl("#be9873"),
-  cyan = hsl("#99ddee"),
-  darkgrey = hsl("#333333"),
-  gold = hsl("#ffe766"),
-  green = hsl("#99bb99"),
-  grey = hsl(30, 10, 50),
-  lime = hsl("#dedd99"),
-  orange = hsl("#ffaa77"),
-  pink = hsl("#ffbbbb"),
-  purple = hsl("#dda0dd"),
-  rosybrown = hsl("#bc8f8f"),
-  -- salmon = hsl("#fcaca3"),
-  salmon = hsl("#ffbb99"),
-  white = hsl("#d9d9d9"),
-  yellow = hsl("#ffdd99"),
-
-  -- deep
-  deep_black = hsl("#000000"),
-  deep_cyan = hsl("#00ccff"),
-  deep_blue = hsl("#5555FF"),
-  deep_green = hsl("#006600"),
-  deep_teal = hsl("#008080"),
-  deep_grey = hsl("#393939"),
-  deep_darkgrey = hsl("#1a1a1a"),
-  deep_orange = hsl("#ff5555"),
-  deep_pink = hsl(340, 90, 66),
-  deep_purple = hsl("#991177"),
-  deep_rosybrown = hsl("#9a7372"),
-  deep_red = hsl("#770000"),
-  deep_salmon = hsl("#fa8072"),
-  deep_white = hsl("#ffffff"),
-  deep_yellow = hsl("#ffdd00"),
-}
+local palette = require("palette")
 
 local function tame(colour)
   return colour.darken(10).desaturate(40)
@@ -71,7 +33,7 @@ local theme = lush(function()
     -- A character constant: 'c', '\n'
     Character { fg = tame(palette.pink) },
     -- A number constant: 234, 0xff
-    Number { fg = palette.lime },
+    Number { fg = palette.salmon },
     -- A boolean constant: TRUE, false
     Boolean { fg = tame(palette.green) },
     -- A floating point constant: 2.3e10
@@ -487,69 +449,6 @@ local theme = lush(function()
     GitSignsAdd { GitGutterAdd },
     GitSignsChange { GitGutterChange },
     GitSignsDelete { GitGutterDelete },
-
-    -- [ plugin:lualine ]
-    lualine_b_inactive { bg = palette.darkgrey, fg = tame(palette.grey) },
-    lualine_c_inactive { lualine_b_inactive },
-    lualine_a_inactive { lualine_b_inactive, gui = "bold" },
-    lualine_b_normal { bg = palette.deep_grey, fg = tame(palette.yellow) },
-    lualine_c_normal { bg = palette.darkgrey, fg = palette.grey },
-    lualine_a_normal { bg = tame(palette.blue), gui = "bold", fg = palette.black },
-    lualine_b_replace { bg = palette.deep_grey, fg = tame(palette.yellow) },
-    lualine_a_replace { bg = palette.orange, gui = "bold", fg = palette.black },
-    lualine_b_insert { lualine_b_normal },
-    lualine_a_insert { bg = palette.green, gui = "bold", fg = palette.deep_grey },
-    lualine_b_visual { lualine_b_normal },
-    lualine_a_visual { bg = palette.pink, gui = "bold", fg = palette.black },
-    lualine_b_diff_added_normal { bg = palette.deep_grey, fg = palette.green },
-    lualine_b_diff_added_insert { bg = palette.deep_grey, fg = palette.green },
-    lualine_b_diff_added_visual { bg = palette.deep_grey, fg = palette.green },
-    lualine_b_diff_added_replace { bg = palette.deep_grey, fg = palette.green },
-    lualine_b_diff_added_command { bg = palette.deep_grey, fg = palette.green },
-    lualine_b_diff_added_terminal { bg = palette.deep_grey, fg = palette.green },
-    lualine_b_diff_added_inactive { bg = palette.darkgrey, fg = palette.green },
-    lualine_b_diff_modified_normal { bg = palette.deep_grey, fg = palette.blue },
-    lualine_b_diff_modified_insert { bg = palette.deep_grey, fg = palette.blue },
-    lualine_b_diff_modified_visual { bg = palette.deep_grey, fg = palette.blue },
-    lualine_b_diff_modified_replace { bg = palette.deep_grey, fg = palette.blue },
-    lualine_b_diff_modified_command { bg = palette.deep_grey, fg = palette.blue },
-    lualine_b_diff_modified_terminal { bg = palette.deep_grey, fg = palette.blue },
-    lualine_b_diff_modified_inactive { bg = palette.darkgrey, fg = palette.blue },
-    lualine_b_diff_removed_normal { bg = palette.deep_grey, fg = palette.deep_pink },
-    lualine_b_diff_removed_insert { bg = palette.deep_grey, fg = palette.deep_pink },
-    lualine_b_diff_removed_visual   { bg = palette.deep_grey, fg = palette.deep_pink },
-    lualine_b_diff_removed_replace  { bg = palette.deep_grey, fg = palette.deep_pink },
-    lualine_b_diff_removed_command  { bg = palette.deep_grey, fg = palette.deep_pink },
-    lualine_b_diff_removed_terminal { bg = palette.deep_grey, fg = palette.deep_pink },
-    lualine_b_diff_removed_inactive { bg = palette.darkgrey, fg = palette.deep_pink },
-    lualine_b_diagnostics_error_normal   { bg = palette.deep_grey, fg = DiagnosticError.fg },
-    lualine_b_diagnostics_error_insert   { bg = palette.deep_grey, fg = DiagnosticError.fg },
-    lualine_b_diagnostics_error_visual   { bg = palette.deep_grey, fg = DiagnosticError.fg },
-    lualine_b_diagnostics_error_replace  { bg = palette.deep_grey, fg = DiagnosticError.fg },
-    lualine_b_diagnostics_error_command  { bg = palette.deep_grey, fg = DiagnosticError.fg },
-    lualine_b_diagnostics_error_terminal { bg = palette.deep_grey, fg = DiagnosticError.fg },
-    lualine_b_diagnostics_error_inactive { bg = palette.darkgrey, fg = DiagnosticError.fg },
-    lualine_b_diagnostics_warn_normal    { bg = palette.deep_grey, fg = DiagnosticWarn.fg },
-    lualine_b_diagnostics_warn_insert    { bg = palette.deep_grey, fg = DiagnosticWarn.fg },
-    lualine_b_diagnostics_warn_visual    { bg = palette.deep_grey, fg = DiagnosticWarn.fg },
-    lualine_b_diagnostics_warn_replace   { bg = palette.deep_grey, fg = DiagnosticWarn.fg },
-    lualine_b_diagnostics_warn_command   { bg = palette.deep_grey, fg = DiagnosticWarn.fg },
-    lualine_b_diagnostics_warn_terminal  { bg = palette.deep_grey, fg = DiagnosticWarn.fg },
-    lualine_b_diagnostics_warn_inactive  { bg = palette.darkgrey, fg = DiagnosticWarn.fg },
-    lualine_b_diagnostics_info_normal   { bg = palette.deep_grey, fg = DiagnosticInfo.fg },
-    lualine_b_diagnostics_info_insert   { bg = palette.deep_grey, fg = DiagnosticInfo.fg },
-    lualine_b_diagnostics_info_visual   { bg = palette.deep_grey, fg = DiagnosticInfo.fg },
-    lualine_b_diagnostics_info_replace  { bg = palette.deep_grey, fg = DiagnosticInfo.fg },
-    lualine_b_diagnostics_info_command  { bg = palette.deep_grey, fg = DiagnosticInfo.fg },
-    lualine_b_diagnostics_info_terminal { bg = palette.deep_grey, fg = DiagnosticInfo.fg },
-    lualine_b_diagnostics_info_inactive { bg = palette.darkgrey, fg = DiagnosticInfo.fg },
-    lualine_b_diagnostics_hint_normal   { bg = palette.deep_grey, fg = DiagnosticHint.fg },
-    lualine_b_diagnostics_hint_insert   { bg = palette.deep_grey, fg = DiagnosticHint.fg },
-    lualine_b_diagnostics_hint_visual   { bg = palette.deep_grey, fg = DiagnosticHint.fg },
-    lualine_b_diagnostics_hint_replace  { bg = palette.deep_grey, fg = DiagnosticHint.fg },
-    lualine_b_diagnostics_hint_command  { bg = palette.deep_grey, fg = DiagnosticHint.fg },
-    lualine_b_diagnostics_hint_terminal { bg = palette.deep_grey, fg = DiagnosticHint.fg },
-    lualine_b_diagnostics_hint_inactive { bg = palette.darkgrey, fg = DiagnosticHint.fg },
 
     -- [ plugin:beacon.nvim ]
     BeaconDefault { bg = "white" },
