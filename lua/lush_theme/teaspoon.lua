@@ -1,5 +1,6 @@
+-- Built with [Lush](https://github.com/rktjmp/lush.nvim).
 --
--- Built with Lush. Enable lush.ify on this file:
+-- Enable lush.ify on this file:
 --
 --  `:lua require('lush').ify()`
 
@@ -8,85 +9,122 @@ local hsl = lush.hsl
 
 -- palette
 local palette = {
-  special = hsl("#707070"),
+  black = hsl("#252525"),
+  blue = hsl("#99bbdd"),
+  brown = hsl("#be9873"),
+  cyan = hsl("#99ddee"),
+  darkgrey = hsl("#333333"),
+  gold = hsl("#ffe766"),
+  green = hsl("#99bb99"),
+  grey = hsl(30, 10, 50),
+  lime = hsl("#dedd99"),
+  orange = hsl("#ffaa77"),
+  pink = hsl("#ffbbbb"),
+  purple = hsl("#dda0dd"),
+  rosybrown = hsl("#bc8f8f"),
+  salmon = hsl("#fcaca3"),
+  white = hsl("#d9d9d9"),
+  yellow = hsl("#ffdd99"),
+
+  -- deep
+  deep_black = hsl("#000000"),
+  deep_cyan = hsl("#00ccff"),
+  deep_blue = hsl("#5555FF"),
+  deep_green = hsl("#006600"),
+  deep_teal = hsl("#008080"),
+  deep_grey = hsl("#4b4b4b"),
+  deep_darkgrey = hsl("#1a1a1a"),
+  deep_orange = hsl("#ff5555"),
+  deep_pink = hsl(340, 90, 66),
+  deep_purple = hsl("#991177"),
+  deep_rosybrown = hsl("#9a7372"),
+  deep_red = hsl("#770000"),
+  deep_salmon = hsl("#fa8072"),
+  deep_white = hsl("#ffffff"),
+  deep_yellow = hsl("#ffdd00"),
 }
+
+local function tame(colour)
+  return colour.darken(10).desaturate(40)
+end
 
 -- LSP/Linters get confused here.
 ---@diagnostic disable: undefined-global
 local theme = lush(function()
   return {
-    Normal { bg = hsl("#252525"), fg = hsl("#d9d9d9") },
+    Normal { bg = palette.black, fg = palette.white },
     -- Visual mode selection
-    Visual { bg = hsl("#000000"), fg = hsl("#fddd99"), gui="standout" },
+    Visual { bg = palette.deep_black },
     -- Visual mode selection when vim is "Not Owning the Selection".
     VisualNOS { Visual },
-    -- MsgArea      { }, -- Area for messages and cmdline
-    -- MsgSeparator { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
-    -- NormalNC     { }, -- normal text in non-current windows
-    -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 
+    -- MsgArea      { }, -- Area for messages and cmdline
+    -- NormalNC     { }, -- normal text in non-current windows
+
+    -- [ generic ]
 
     -- (preferred) any constant
-    Constant { fg = hsl("#6fbcbd") },
+    Constant { fg = palette.pink },
     -- A string constant: "this is a string"
-    String { fg = hsl("#98bcbd") },
+    String { fg = tame(palette.cyan).desaturate(40) },
     -- A character constant: 'c', '\n'
-    Character { fg = hsl("#e09b99") },
+    Character { fg = tame(palette.pink) },
     -- A number constant: 234, 0xff
-    Number { fg = hsl("#ffdd99") },
+    Number { fg = palette.lime },
     -- A boolean constant: TRUE, false
-    Boolean { fg = hsl("#99aabb") },
+    Boolean { fg = tame(palette.green) },
     -- A floating point constant: 2.3e10
     Float { Number },
 
     -- (preferred) any variable name
-    Identifier { fg = hsl("#ffbfbd") },
-    -- Function       { }, -- function name (also: methods for classes)
-    Function { fg = hsl("#dfdebd") },
+    Identifier { fg = palette.pink },
+    -- function name (also: methods for classes)
+    Function { fg = palette.yellow.desaturate(30) },
 
     -- (preferred) any statement
-    Statement { gui = "bold", fg = hsl("#98bc99") },
+    Statement { gui = "bold", fg = palette.green },
     -- if, then, else, endif, switch, etc.
-    Conditional { fg = hsl("#98bede") },
-    -- Repeat         { }, --   for, do, while, etc.
-    Repeat { fg = hsl("#719cdf") },
+    Conditional { fg = palette.blue },
+    -- for, do, while, etc.
+    Repeat { Conditional },
     -- case, default, etc.
     Label { Statement },
     -- "sizeof", "+", "*", etc.
-    Operator { fg = hsl("#dedd99") },
+    Operator { fg = palette.lime },
     -- Any other keyword
-    Keyword { fg = hsl("#e17899") },
+    Keyword { fg = tame(palette.cyan) },
     -- try, catch, throw
-    Exception { fg = hsl("#ee4455") },
+    Exception { fg = palette.deep_orange },
 
     -- (preferred) generic Preprocessor
-    PreProc { fg = hsl("#bdbb72") },
+    PreProc { fg = tame(palette.lime) },
     -- preprocessor #include
-    Include { fg = hsl("#e19972") },
+    Include { fg = tame(palette.yellow.desaturate(50)) },
     -- preprocessor #define
-    Define { Include },
+    Define { fg = tame(palette.orange) },
     -- same as Define
     Macro { Include },
     -- preprocessor #if, #else, #endif, etc.
-    PreCondit { Include },
+    PreCondit { Define },
 
     -- (preferred) int, long, char, etc.
-    Type { gui = "bold", fg = hsl("#dfbc72") },
+    -- Type { gui = "bold", fg = tame(palette.orange) },
+    Type { fg = tame(palette.gold) },
     -- static, register, volatile, etc.
     StorageClass { Type },
     -- struct, union, enum, etc.
-    Structure { fg = hsl("#77ddff") },
+    Structure { fg = palette.cyan },
     -- A typedef
     Typedef { Type },
 
     -- (preferred) any special symbol
-    Special { fg = hsl("#ffbd98") },
+    Special { fg = tame(palette.pink) },
     -- special character in a constant
     SpecialChar { Special },
     -- can use CTRL-] on this
     Tag { Special },
     -- character that needs attention
-    Delimiter { fg = hsl("#be9873") },
+    Delimiter { fg = palette.brown },
     StringDelimiter { Delimiter },
     -- special things inside a comment
     SpecialComment { Special },
@@ -94,27 +132,21 @@ local theme = lush(function()
     Debug { Special },
 
     -- (preferred) text that stands out, HTML links
-    -- seoul was hsl("#e0bebc")
-    Underlined { gui = "underline", fg = hsl("#88aaee"), sp = hsl("#88aaee").darken(10) },
-    -- Bold       { gui = "bold" },
-    -- Italic     { gui = "italic" },
+    Underlined { gui = "underline", fg = palette.blue, sp = tame(palette.blue) },
+    Bold { gui = "bold" },
+    Italic { gui = "italic" },
 
     -- (preferred) left blank, hidden  |hl-Ignore|
-    Ignore { bg = hsl("#252525"), fg = hsl("#4b4b4b") },
+    Ignore { bg = palette.black, fg = palette.deep_grey },
 
     -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Todo { bg = hsl("#060606"), fg = hsl(340, 90, 66) },
+    Todo { bg = palette.deep_black, fg = palette.deep_pink },
 
     -- Any comment
-    -- seoul is hsl("#719872")
-    Comment { fg = hsl(30, 10, 50) },
-    -- Substitute   { }, -- |:substitute| replacement text highlighting
-    -- See |pi_paren.txt|
-    MatchParen { bg = hsl("#4b4b4b") },
-
+    Comment { fg = palette.grey },
 
     -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    SpecialKey { fg = palette.special },
+    SpecialKey { fg = palette.darkgrey.lighten(50) },
     -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line).
     -- See also |hl-EndOfBuffer|.
     NonText { gui = "bold", fg = SpecialKey.fg },
@@ -124,38 +156,39 @@ local theme = lush(function()
     Whitespace { NonText },
 
     -- Directory names (and other special names in listings)
-    Directory { fg = hsl("#dfdebd") },
+    Directory { fg = tame(palette.yellow) },
 
-
-    -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
-    IncSearch { bg = hsl("#333233"), gui = "reverse", fg = hsl("#ffdd00") },
-    -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
-    Search { bg = IncSearch.fg.rotate(140), fg = IncSearch.bg },
-
-    QuickFixLine { Search },
+    -- [ search ]
+    -- See 'incsearch' highlighting. Also used for the text replaced with ":s///c"
+    IncSearch { bg = palette.black, gui = "reverse", fg = palette.deep_yellow },
+    -- See 'hlsearch'.
+    Search { bg = palette.deep_cyan, fg = "bg" },
+    -- |:substitute| replacement text highlighting
     Substitute { Search },
-
+    -- Current |quickfix| item in the quickfix window.
+    QuickFixLine { Search, bg = tame(palette.deep_cyan) },
+    -- See |pi_paren.txt|
+    MatchParen { bg = palette.orange, fg = "bg" },
     -- current match in 'wildmenu' completion
-    WildMenu { bg = hsl("#dedc00"), fg = hsl("#9a7372") },
-
+    WildMenu { bg = tame(palette.deep_yellow), fg = palette.black },
 
     -- [ messages ]
     -- Any erroneous construct
-    Error { bg = hsl("#730b00"), fg = Normal.fg },
+    Error { bg = palette.deep_red, fg = palette.white },
     -- Error messages on the command line
     ErrorMsg { Error },
 
-
     -- |more-prompt|
-    MoreMsg { gui = "bold", fg = hsl("#e19972") },
+    MoreMsg { gui = "bold", fg = tame(palette.orange) },
     -- 'showmode' message (e.g., "-- INSERT -- ")
     ModeMsg { MoreMsg },
 
     -- Warning messages
-    WarningMsg { fg = hsl("#dfbc72") },
+    WarningMsg { fg = tame(palette.yellow) },
 
-    -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-    LineNr { bg = hsl("#333233"), fg = hsl("#999872") },
+    -- Line number for ":number".
+    LineNr { bg = palette.darkgrey, fg = tame(palette.yellow).desaturate(70).darken(30) },
+    -- Combined with |hl-CursorLine| when the cursor is there.
     LineNrAbove { LineNr },
     LineNrBelow { LineNr },
 
@@ -169,96 +202,92 @@ local theme = lush(function()
     -- TermCursorNC { }, -- cursor in an unfocused terminal
     -- CursorIM     { }, -- like Cursor, but used when in IME mode |CursorIM|
     -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
-    CursorLine { bg = hsl("#171717") },
+    CursorLine { bg = palette.black.darken(40) },
     -- Screen-column at the cursor, when 'cursorcolumn' is set.
     CursorColumn { CursorLine },
     -- Used for the columns set with 'colorcolumn'
     ColorColumn { CursorLine },
-    -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    CursorLineNr { bg = hsl("#171717"), gui = "bold", fg = hsl("#be7572") },
-
+    -- Like LineNr
+    CursorLineNr { bg = palette.deep_black, gui = "bold", fg = tame(palette.pink) },
 
     -- |hit-enter| prompt and yes/no questions
-    Question { gui = "bold", fg = hsl("#dfbc72") },
+    Question { gui = "bold", fg = tame(palette.yellow) },
 
     -- Status line of current window
-    StatusLine { fg = hsl("#dfdebd"), gui = "bold", bg = hsl("#9a7372") },
+    StatusLine { fg = palette.yellow.lighten(50), gui = "bold", bg = palette.rosybrown },
+    -- Separator for scrolled messages, `msgsep` flag of 'display'
     MsgSeparator { StatusLine },
-    -- Status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-    StatusLineNC { fg = hsl("#dfdebd"), bg = hsl("#3f3f3f") },
     StatusLineTerm { StatusLine },
+    -- Status lines of not-current windows.
+    StatusLineNC { fg = StatusLine.fg, bg = palette.darkgrey },
     StatusLineTermNC { StatusLineNC },
 
     -- The column separating vertically split windows
-    VertSplit { fg = hsl("#060606"), bg = hsl("#060606") },
+    VertSplit { fg = palette.deep_black, bg = palette.deep_black },
 
     -- [ floatingwindow ]
     -- Normal text in floating windows.
     NormalFloat { CursorLine },
     FloatBorder { VertSplit },
-    FloatShadow { bg = hsl("#000000"), blend = "80" },
+    FloatShadow { bg = palette.deep_black, blend = "80" },
     FloatShadowThrough { bg = FloatShadow.bg, blend = "100" },
 
-
-
     -- Titles for output from ":set all", ":autocmd" etc.
-    Title { gui = "bold", fg = hsl("#e0bebc") },
+    Title { gui = "bold", fg = palette.pink },
 
     -- Line used for closed folds
-    Folded { bg = hsl("#333233"), fg = hsl("#999872") },
+    Folded { bg = palette.deep_grey, fg = tame(palette.lime) },
     -- 'foldcolumn'
     FoldColumn { bg = Folded.bg, fg = Folded.fg.lighten(30) },
 
     -- [ mode:diff ]
     -- Added line |diff.txt|
-    DiffAdd { bg = hsl("#006f00") },
+    DiffAdd { bg = palette.deep_green },
     -- Changed line |diff.txt|
-    DiffChange { bg = hsl("#4b4b4b") },
+    DiffChange { bg = palette.deep_grey },
     -- Deleted line |diff.txt|
-    DiffDelete { bg = hsl("#9a7372"), },
+    DiffDelete { bg = tame(palette.deep_rosybrown) },
     -- Changed text within a changed line |diff.txt|
-    DiffText { bg = hsl("#730b00"), gui = "bold" },
+    DiffText { bg = palette.deep_red, gui = "bold" },
 
     -- column where |signs| are displayed
-    SignColumn { bg = hsl("#252525"), fg = hsl("#e19972") },
+    SignColumn { bg = palette.darkgrey, fg = palette.salmon },
 
     -- Placeholder characters substituted for concealed text (see 'conceallevel')
-    Conceal { bg = hsl("#171717"), fg = hsl("#e9e9e9") },
+    Conceal { bg = palette.deep_darkgrey, fg = palette.white },
 
     -- [ spellchecker ]
     -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
-    SpellBad { sp = hsl("#FF5555"), gui = "undercurl" },
+    SpellBad { sp = palette.deep_salmon, gui = "undercurl" },
     -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    SpellCap { sp = hsl("#5555FF"), gui = "undercurl" },
+    SpellCap { sp = palette.deep_yellow, gui = "undercurl" },
     -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    SpellRare { sp = hsl("#991177"), gui = "undercurl" },
+    SpellRare { sp = palette.deep_purple, gui = "undercurl" },
     -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    SpellLocal { sp = hsl("#55BBff"), gui = "undercurl" },
+    SpellLocal { sp = palette.deep_cyan, gui = "undercurl" },
 
     -- [ popupmenu ]
     -- Popup menu: normal item.
-    Pmenu { bg = hsl("#ffdfdf"), fg = hsl("#333233") },
+    Pmenu { bg = palette.pink.lighten(50), fg = palette.black },
     -- Popup menu: selected item.
-    PmenuSel { bg = hsl("#9b1d72"), fg = hsl("#d9d9d9") },
+    PmenuSel { bg = palette.deep_pink, fg = palette.deep_white },
     -- Popup menu: scrollbar.
-    PmenuSbar { bg = hsl("#719872") },
+    PmenuSbar { bg = palette.cyan, fg = Pmenu.fg },
     -- Popup menu: Thumb of the scrollbar.
-    PmenuThumb { bg = hsl("#007173") },
-
+    PmenuThumb { bg = palette.deep_cyan, fg = Pmenu.fg },
 
     -- [ tabline ]
     -- Tab line, not active tab page label
-    TabLine { bg = hsl("#565656"), gui = "underline" },
+    TabLine { bg = palette.darkgrey.lighten(20), gui = "underline" },
     -- Tab line, active tab page label
-    TabLineSel { bg = hsl("#007173"), gui = "bold", fg = hsl("#dfdebd") },
+    TabLineSel { bg = palette.deep_teal, gui = "bold", fg = palette.yellow },
     -- Tab line, where there are no labels
-    TabLineFill { gui = "reverse", fg = hsl("#3f3f3f") },
+    TabLineFill { bg = palette.darkgrey },
 
     RedrawDebugNormal { gui = "reverse" },
     RedrawDebugClear { bg = "yellow" },
     RedrawDebugComposed { bg = "green" },
     RedrawDebugRecompose { bg = "red" },
-
 
     -- [ diagnostic ]
     -- See :h diagnostic-highlights
@@ -270,10 +299,6 @@ local theme = lush(function()
     DiagnosticVirtualTextWarn { DiagnosticWarn },
     DiagnosticVirtualTextInfo { DiagnosticInfo },
     DiagnosticVirtualTextHint { DiagnosticHint },
-    -- DiagnosticUnderlineError   { } , -- Used to underline "Error" diagnostics.
-    -- DiagnosticUnderlineWarn    { } , -- Used to underline "Warn" diagnostics.
-    -- DiagnosticUnderlineInfo    { } , -- Used to underline "Info" diagnostics.
-    -- DiagnosticUnderlineHint    { } , -- Used to underline "Hint" diagnostics.
     -- See |vim.diagnostic.open_float()|
     DiagnosticFloatingError { DiagnosticError },
     DiagnosticFloatingWarn { DiagnosticWarn },
@@ -309,8 +334,6 @@ local theme = lush(function()
     NvimComma { Delimiter },
     NvimArrow { Delimiter },
 
-
-
     -- [ lsp ]
     -- See :h lsp-highlight
     --
@@ -320,10 +343,6 @@ local theme = lush(function()
     -- LspCodeLens                 { } , -- Used to color the virtual text of the codelens. See |nvim_buf_set_extmark()|.
     -- LspCodeLensSeparator        { } , -- Used to color the seperator between two or more code lens.
     -- LspSignatureActiveParameter { } , -- Used to highlight the active parameter in the signature help. See |vim.lsp.handlers.signature_help()|.
-
-
-
-
 
     -- [ treesitter ]
     -- See :h nvim-treesitter-highlights
@@ -411,15 +430,6 @@ local theme = lush(function()
     luaTable { Structure },
     luaComment { Comment },
 
-    -- [ syntax:ruby ]
-    rubyClass { fg = hsl("#0099bd") },
-    rubyRegexp { fg = hsl("#dedd99") },
-    rubyRegexpDelimiter { fg = hsl("#e17899") },
-    rubyArrayDelimiter { fg = hsl("#7299bc") },
-    rubyBlockParameterList { fg = hsl("#dedd99") },
-    rubyCurlyBlockDelimiter { fg = hsl("#bdbc98") },
-    rubyPredefinedIdentifier { fg = hsl("#ffffdf") },
-
     -- [ plugin:telescope ]
     TelescopePromptCounter { NonText },
     TelescopePreviewHyphen { NonText },
@@ -429,7 +439,7 @@ local theme = lush(function()
     TelescopePreviewDate { Directory },
     TelescopeResultsLineNr { LineNr },
     TelescopeSelection { Visual },
-    TelescopePreviewLine { Visual },
+    TelescopePreviewLine { TelescopeSelection },
     TelescopeResultsDiffAdd { DiffAdd },
     TelescopeResultsDiffChange { DiffChange },
     TelescopeResultsDiffDelete { DiffDelete },
@@ -460,10 +470,10 @@ local theme = lush(function()
     TelescopeResultsComment { Comment },
 
     -- [ plugin:gitgutter ]
-    GitGutterAdd { bg = hsl("#333233"), fg = hsl("#98bc99") },
-    GitGutterChange { bg = hsl("#333233"), fg = hsl("#719cdf") },
-    GitGutterDelete { bg = hsl("#333233"), fg = hsl("#e12672") },
-    GitGutterChangeDelete { bg = hsl("#333233"), fg = hsl("#e17899") },
+    GitGutterAdd { bg = palette.darkgrey, fg = palette.green },
+    GitGutterChange { bg = palette.darkgrey, fg = palette.blue },
+    GitGutterDelete { bg = palette.darkgrey, fg = palette.deep_salmon },
+    GitGutterChangeDelete { bg = palette.darkgrey, fg = palette.purple },
 
     -- [ plugin:gitsigns ]
     GitSignsAddInline { TermCursor },
@@ -476,7 +486,6 @@ local theme = lush(function()
     GitSignsAdd { GitGutterAdd },
     GitSignsChange { GitGutterChange },
     GitSignsDelete { GitGutterDelete },
-
 
     -- [ plugin:lualine ]
     -- lualine_b_inactive { bg = hsl("#30302c"), fg = hsl("#666656") },
@@ -541,28 +550,25 @@ local theme = lush(function()
     -- lualine_b_diagnostics_hint_terminal { bg = "#4e4e43", fg = "#d3d3d3" },
     -- lualine_b_diagnostics_hint_inactive { bg = "#30302c", fg = "#d3d3d3" },
 
-
     -- [ plugin:beacon.nvim ]
     BeaconDefault { bg = "white" },
     Beacon { BeaconDefault },
 
-
     -- [ plugin:zen-mode.nvim ]
-    ZenBg { bg = hsl("#232323"), fg = hsl("#232323") },
+    ZenBg { bg = palette.black, fg = palette.black },
 
     -- [ plugin:nvim-cmp ]
-    CmpItemAbbrDefault { fg = hsl("#333233") },
+    CmpItemAbbrDefault { fg = palette.deep_black },
     CmpItemAbbr { CmpItemAbbrDefault },
-    CmpItemAbbrDeprecatedDefault { fg = hsl("#719872") },
+    CmpItemAbbrDeprecatedDefault { fg = palette.green },
     CmpItemAbbrDeprecated { CmpItemAbbrDeprecatedDefault },
-    CmpItemAbbrMatchDefault { fg = hsl("#333233") },
+    CmpItemAbbrMatchDefault { fg = palette.darkgrey },
     CmpItemAbbrMatch { CmpItemAbbrMatchDefault },
-    CmpItemAbbrMatchFuzzyDefault { fg = hsl("#333233") },
+    CmpItemAbbrMatchFuzzyDefault { fg = palette.darkgrey },
     CmpItemAbbrMatchFuzzy { CmpItemAbbrMatchFuzzyDefault },
     CmpItemKindDefault { fg = hsl("#ffbd98") },
-    CmpItemMenuDefault { fg = hsl("#333233") },
+    CmpItemMenuDefault { fg = palette.darkgrey },
     CmpItemMenu { CmpItemMenuDefault },
-
 
     -- [ plugin:cheatsheet.nvim ]
     cheatDescription { String },
@@ -573,26 +579,18 @@ local theme = lush(function()
     cheatComment { Comment },
     cheatMetadataComment { Comment },
 
-
-    -- [ plugin:ale ]
-    -- TODO: remove?
-    ALEErrorSign { bg = hsl("#252525"), fg = hsl("#e12672") },
-    ALEWarningSign { bg = hsl("#252525"), fg = hsl("#e09b99") },
-
-
     -- TODO: unknown origin
     diffLine { Constant },
-    diffAdded { fg = hsl("#98bc99") },
-    diffRemoved { fg = hsl("#e09b99") },
+    diffAdded { fg = palette.green },
+    diffRemoved { fg = palette.salmon },
     ShadeBrightnessPopup { Number },
-    IndentGuidesOdd { bg = hsl("#171717") },
-    IndentGuidesEven { bg = hsl("#333233") },
+    IndentGuidesOdd { bg = palette.darkgrey.lighten(10) },
+    IndentGuidesEven { bg = palette.darkgrey },
     -- SignifySignAdd { bg = "#333233", fg = "#98bc99" },
     -- SignifySignChange { bg = "#333233", fg = "#719cdf" },
     -- SignifySignDelete { bg = "#333233", fg = "#e12672" },
-    ExtraWhitespace { bg = hsl("#171717") },
+    ExtraWhitespace { bg = palette.darkgrey },
     ShadeOverlay { bg = "none", gui = "nocombine" },
-    -- colorizer_mb_a3cff5 { bg = hsl("#a3cff5"), fg = "black" },
   }
 end)
 
