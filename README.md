@@ -2,7 +2,7 @@
 
 A [Lush] Theme for Neovim derived from the dark [Seoul256] theme for Vim.
 
-This theme also dependds on [lualine] for customising the statusline.
+This theme also depends on [lualine] for customising the statusline.
 
 
 ![teaspoon screenshot](./assets/screenshot.png)
