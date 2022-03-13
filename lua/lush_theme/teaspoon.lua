@@ -45,7 +45,7 @@ local theme = lush(function()
     Function { fg = palette.yellow.desaturate(30) },
 
     -- (preferred) any statement
-    Statement { gui = "bold", fg = palette.green },
+    Statement { gui = "bold", fg = palette.blue },
     -- if, then, else, endif, switch, etc.
     Conditional { fg = palette.blue },
     -- for, do, while, etc.
@@ -241,11 +241,11 @@ local theme = lush(function()
 
     -- [ tabline ]
     -- Tab line, not active tab page label
-    TabLine { bg = palette.darkgrey.lighten(20), gui = "underline" },
+    TabLine { bg = palette.darkgrey.lighten(20), fg = palette.white },
     -- Tab line, active tab page label
-    TabLineSel { bg = palette.deep_teal, gui = "bold", fg = palette.yellow },
+    TabLineSel { bg = palette.blue, gui = "bold", fg = palette.black },
     -- Tab line, where there are no labels
-    TabLineFill { bg = palette.darkgrey },
+    TabLineFill { bg = palette.darkgrey, fg = palette.white },
 
     RedrawDebugNormal { gui = "reverse" },
     RedrawDebugClear { bg = "yellow" },
@@ -373,25 +373,25 @@ local theme = lush(function()
     TSWarning { Todo },
 
     -- [ syntax:lua ]
-    luaParenError { Error },
-    luaBraceError { Error },
-    luaError { Error },
-    luaTodo { Todo },
-    luaString2 { String },
-    luaString { String },
-    luaConstant { Constant },
-    luaNumber { Number },
-    luaFunction { Function },
-    luaFunc { Identifier },
-    luaElse { Conditional },
-    luaCond { Conditional },
-    luaStatement { Statement },
-    luaRepeat { Repeat },
-    luaFor { Repeat },
-    luaIn { Operator },
-    luaOperator { Operator },
-    luaTable { Structure },
-    luaComment { Comment },
+    -- luaParenError { Error },
+    -- luaBraceError { Error },
+    -- luaError { Error },
+    -- luaTodo { Todo },
+    -- luaString2 { String },
+    -- luaString { String },
+    -- luaConstant { Constant },
+    -- luaNumber { Number },
+    -- luaFunction { Function },
+    -- luaFunc { Identifier },
+    -- luaElse { Conditional },
+    -- luaCond { Conditional },
+    -- luaStatement { Statement },
+    -- luaRepeat { Repeat },
+    -- luaFor { Repeat },
+    -- luaIn { Operator },
+    -- luaOperator { Operator },
+    -- luaTable { Structure },
+    -- luaComment { Comment },
 
     -- [ plugin:telescope ]
     TelescopePromptCounter { NonText },
