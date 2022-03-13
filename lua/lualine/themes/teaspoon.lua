@@ -1,4 +1,4 @@
-local palette = require("palette")
+local palette = require("teaspoon.palette")
 
 local colours = {
   black = palette.black.hex,

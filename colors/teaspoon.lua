@@ -13,7 +13,9 @@ vim.g.colors_name = "teaspoon"
 --
 -- The performance impact of this call can be measured in the hundreds of
 -- *nanoseconds* and such could be considered "production safe".
-package.loaded["lush_theme.teaspoon"] = nil
+package.loaded["teaspoon"] = nil
+package.loaded["teaspoon.init"] = nil
+package.loaded["teaspoon.theme"] = nil
 
 -- include our theme file and pass it to lush to apply
-require("lush")(require("lush_theme.teaspoon"))
+require("lush")(require("teaspoon.init").setup())

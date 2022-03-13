@@ -1,3 +1,4 @@
+-- vi:nowrap
 -- Built with [Lush](https://github.com/rktjmp/lush.nvim).
 --
 -- Enable lush.ify on this file:
@@ -5,7 +6,7 @@
 --  `:lua require('lush').ify()`
 
 local lush = require("lush")
-local palette = require("palette")
+local palette = require("teaspoon.palette")
 
 local function tame(colour)
   return colour.darken(10).desaturate(40)
@@ -495,5 +496,3 @@ local theme = lush(function()
 end)
 
 return theme
-
--- vi:nowrap
