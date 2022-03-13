@@ -71,14 +71,14 @@ local theme = lush(function()
     PreCondit { Define },
 
     -- (preferred) int, long, char, etc.
-    -- Type { gui = "bold", fg = tame(palette.orange) },
-    Type { fg = tame(palette.gold) },
+    Type { fg = palette.salmon.lighten(30) },
     -- static, register, volatile, etc.
     StorageClass { Type },
     -- struct, union, enum, etc.
     Structure { fg = palette.cyan },
     -- A typedef
-    Typedef { Type },
+    -- Typedef { Type },
+    Typedef { fg = palette.cyan },
 
     -- (preferred) any special symbol
     Special { fg = tame(palette.pink) },
