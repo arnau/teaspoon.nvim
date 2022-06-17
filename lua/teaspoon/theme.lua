@@ -193,8 +193,8 @@ local theme = lush(function()
     -- Normal text in floating windows.
     NormalFloat { CursorLine },
     FloatBorder { VertSplit },
-    FloatShadow { bg = palette.deep_black, blend = "80" },
-    FloatShadowThrough { bg = FloatShadow.bg, blend = "100" },
+    FloatShadow { bg = palette.deep_black, blend = 80 },
+    FloatShadowThrough { bg = FloatShadow.bg, blend = 100 },
 
     -- Titles for output from ":set all", ":autocmd" etc.
     Title { gui = "bold", fg = palette.pink },
