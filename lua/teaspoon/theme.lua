@@ -58,14 +58,14 @@ local theme = lush(function()
     -- Any other keyword
     Keyword { fg = tame(palette.cyan) },
     -- try, catch, throw
-    Exception { fg = palette.deep_orange },
+    Exception { fg = palette.pink },
 
     -- (preferred) generic Preprocessor
     PreProc { fg = tame(palette.lime) },
     -- preprocessor #include
     Include { fg = tame(palette.yellow.desaturate(50)) },
     -- preprocessor #define
-    Define { fg = tame(palette.orange) },
+    Define { fg = tame(palette.pink) },
     -- same as Define
     Macro { Include },
     -- preprocessor #if, #else, #endif, etc.
@@ -76,10 +76,10 @@ local theme = lush(function()
     -- static, register, volatile, etc.
     StorageClass { Type },
     -- struct, union, enum, etc.
-    Structure { fg = palette.cyan },
+    Structure { fg = palette.pink },
     -- A typedef
     -- Typedef { Type },
-    Typedef { fg = palette.cyan },
+    Typedef { fg = palette.pink },
 
     -- (preferred) any special symbol
     Special { fg = tame(palette.pink) },
